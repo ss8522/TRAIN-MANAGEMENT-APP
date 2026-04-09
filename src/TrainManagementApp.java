@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.LinkedList;
 import java.util.*;
-
+import java.util.stream.Collectors;
 
 public class TrainManagementApp {
     static class Bogie {
@@ -151,6 +151,15 @@ public class TrainManagementApp {
         // Display sorted bogies
         System.out.println("Bogies sorted by capacity (ascending):");
         for (Bogie b : bogieList) {
+            System.out.println(b);
+        }
+        System.out.println("\n--- Filtered Bogies (capacity > 60) ---");
+
+        List<Bogie> filteredBogies = bogieList.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        for (Bogie b : filteredBogies) {
             System.out.println(b);
         }
 
