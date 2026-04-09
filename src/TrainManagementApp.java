@@ -225,7 +225,58 @@ public class TrainManagementApp {
         } else {
             System.out.println("Cargo Code is INVALID");
         }
+        List<Bogie> largeBogieList = new ArrayList<>();
 
+        for (int i = 1; i <= 100000; i++) {
+            if (i % 3 == 0)
+                largeBogieList.add(new Bogie("Sleeper", 72));
+            else if (i % 3 == 1)
+                largeBogieList.add(new Bogie("AC Chair", 60));
+            else
+                largeBogieList.add(new Bogie("First Class", 40));
+        }
+
+        System.out.println("Dataset size: " + largeBogieList.size());
+
+
+// ---------------- LOOP-BASED FILTERING ----------------
+        long loopStart = System.nanoTime();
+
+        List<Bogie> loopResult = new ArrayList<>();
+        for (Bogie b : largeBogieList) {
+            if (b.capacity > 60) {
+                loopResult.add(b);
+            }
+        }
+
+        long loopEnd = System.nanoTime();
+        long loopTime = loopEnd - loopStart;
+
+
+// ---------------- STREAM-BASED FILTERING ----------------
+        long streamStart = System.nanoTime();
+
+        List<Bogie> streamResult = largeBogieList.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        long streamEnd = System.nanoTime();
+        long streamTime = streamEnd - streamStart;
+
+
+// ---------------- RESULTS ----------------
+        System.out.println("\nLoop Result Size: " + loopResult.size());
+        System.out.println("Stream Result Size: " + streamResult.size());
+
+        System.out.println("\nLoop Execution Time (ns): " + loopTime);
+        System.out.println("Stream Execution Time (ns): " + streamTime);
+
+// Verify both results are same
+        if (loopResult.size() == streamResult.size()) {
+            System.out.println("\n✅ Both approaches produce SAME result");
+        } else {
+            System.out.println("\n❌ Results are DIFFERENT");
+        }
         sc.close();
 
         // Program continues...
