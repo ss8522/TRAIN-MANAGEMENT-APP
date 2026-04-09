@@ -162,7 +162,21 @@ public class TrainManagementApp {
         for (Bogie b : filteredBogies) {
             System.out.println(b);
         }
+        System.out.println("\n--- Grouping Bogies by Type ---");
 
+// Reuse bogieList from UC7/UC8
+// Add duplicates to demonstrate grouping clearly
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 60));
+
+// Group bogies by name (type)
+        Map<String, List<Bogie>> groupedBogies = bogieList.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
+
+// Display grouped result
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
         // Program continues...
     }
 }
