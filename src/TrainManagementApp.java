@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrainManagementApp {
     public static void main(String[] args) {
@@ -44,6 +46,21 @@ public class TrainManagementApp {
 
         // Final state
         System.out.println("\nFinal Passenger Bogie List: " + passengerBogies);
+        System.out.println("\n--- Tracking Unique Bogie IDs ---");
+
+        // Create HashSet for unique bogie IDs
+        Set<String> bogieIDs = new HashSet<>();
+
+        // Adding bogie IDs (with duplicates intentionally)
+        bogieIDs.add("BG101");
+        bogieIDs.add("BG102");
+        bogieIDs.add("BG103");
+        bogieIDs.add("BG101"); // duplicate
+        bogieIDs.add("BG102"); // duplicate
+
+        // Display unique bogie IDs
+        System.out.println("Bogie IDs (duplicates automatically removed):");
+        System.out.println(bogieIDs);
 
         // Program continues...
     }
