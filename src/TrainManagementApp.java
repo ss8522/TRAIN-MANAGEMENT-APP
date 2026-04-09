@@ -29,7 +29,19 @@ public class TrainManagementApp {
     public static boolean validateCargoCode(String cargoCode) {
         return cargoCode.matches("PET-[A-Z]{2}");
     }
+    static class GoodsBogie {
+        String type;
+        String cargo;
 
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
+        }
+
+        public String toString() {
+            return type + " (Cargo: " + cargo + ")";
+        }
+    }
     public static void main(String[] args) {
 
         // Welcome message
@@ -225,7 +237,32 @@ public class TrainManagementApp {
         } else {
             System.out.println("Cargo Code is INVALID");
         }
+        List<GoodsBogie> goodsBogies = new ArrayList<>();
 
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        goodsBogies.add(new GoodsBogie("Open", "Coal"));
+        goodsBogies.add(new GoodsBogie("Box", "Grain"));
+// Try invalid case:
+// goodsBogies.add(new GoodsBogie("Cylindrical", "Coal"));
+
+        System.out.println("Goods Bogies:");
+        for (GoodsBogie g : goodsBogies) {
+            System.out.println(g);
+        }
+
+// Safety validation using Streams
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b ->
+                        !b.type.equalsIgnoreCase("Cylindrical") ||
+                                b.cargo.equalsIgnoreCase("Petroleum")
+                );
+
+// Display result
+        if (isSafe) {
+            System.out.println("Train is SAFETY COMPLIANT ✅");
+        } else {
+            System.out.println("Train is NOT SAFE ❌");
+        }
         sc.close();
 
         // Program continues...
