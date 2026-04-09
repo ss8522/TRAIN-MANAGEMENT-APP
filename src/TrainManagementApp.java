@@ -177,6 +177,21 @@ public class TrainManagementApp {
         for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
+        System.out.println("\n--- Total Seating Capacity (reduce) ---");
+
+// Reuse bogieList from UC7–UC9
+
+// Step 1: Convert to stream
+// Step 2: Extract capacity using map()
+// Step 3: Sum using reduce()
+
+        int totalCapacity = bogieList.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
+
+// Display total
+        System.out.println("Total Seating Capacity of Train: " + totalCapacity);
+
         // Program continues...
     }
 }
