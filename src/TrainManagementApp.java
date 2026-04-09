@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.LinkedList;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class TrainManagementApp {
     static class Bogie {
@@ -20,6 +22,14 @@ public class TrainManagementApp {
             return name + " (Capacity: " + capacity + ")";
         }
     }
+    public static boolean validateTrainID(String trainId) {
+        return trainId.matches("TRN-\\d{4}");
+    }
+
+    public static boolean validateCargoCode(String cargoCode) {
+        return cargoCode.matches("PET-[A-Z]{2}");
+    }
+
     public static void main(String[] args) {
 
         // Welcome message
@@ -191,6 +201,32 @@ public class TrainManagementApp {
 
 // Display total
         System.out.println("Total Seating Capacity of Train: " + totalCapacity);
+        System.out.println("\n--- UC11: Validate Train ID & Cargo Code (Regex) ---");
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Train ID: ");
+        String trainId = sc.nextLine();
+
+        System.out.print("Enter Cargo Code: ");
+        String cargoCode = sc.nextLine();
+
+        boolean trainValid = validateTrainID(trainId);
+        boolean cargoValid = validateCargoCode(cargoCode);
+
+        if (trainValid) {
+            System.out.println("Train ID is VALID");
+        } else {
+            System.out.println("Train ID is INVALID");
+        }
+
+        if (cargoValid) {
+            System.out.println("Cargo Code is VALID");
+        } else {
+            System.out.println("Cargo Code is INVALID");
+        }
+
+        sc.close();
 
         // Program continues...
     }
