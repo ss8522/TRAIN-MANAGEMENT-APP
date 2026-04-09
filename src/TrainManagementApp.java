@@ -7,6 +7,19 @@ import java.util.*;
 
 
 public class TrainManagementApp {
+    static class Bogie {
+        String name;
+        int capacity;
+
+        Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
+        }
+
+        public String toString() {
+            return name + " (Capacity: " + capacity + ")";
+        }
+    }
     public static void main(String[] args) {
 
         // Welcome message
@@ -122,6 +135,23 @@ public class TrainManagementApp {
         System.out.println("Bogie Capacity Details:");
         for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
             System.out.println(entry.getKey() + " -> Capacity: " + entry.getValue());
+        }
+        System.out.println("\n--- Sorting Bogies by Capacity ---");
+
+        // Create List of Bogie objects
+        List<Bogie> bogieList = new ArrayList<>();
+
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 60));
+        bogieList.add(new Bogie("First Class", 40));
+
+        // Sort using Comparator (ascending order)
+        bogieList.sort(Comparator.comparingInt(b -> b.capacity));
+
+        // Display sorted bogies
+        System.out.println("Bogies sorted by capacity (ascending):");
+        for (Bogie b : bogieList) {
+            System.out.println(b);
         }
 
         // Program continues...
